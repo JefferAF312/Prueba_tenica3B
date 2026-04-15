@@ -1,0 +1,56 @@
+@baseUrl = http://localhost:8080/api
+
+### Listar tareas
+GET {{baseUrl}}/tareas
+
+### Crear tarea pendiente
+POST {{baseUrl}}/tareas
+Content-Type: application/json
+
+{
+  "titulo": "Preparar prueba tecnica",
+  "descripcion": "Completar API y frontend",
+  "estado": "PENDIENTE"
+}
+
+### Crear tarea completada
+POST {{baseUrl}}/tareas
+Content-Type: application/json
+
+{
+  "titulo": "Revisar README",
+  "descripcion": "Confirmar instrucciones de ejecucion",
+  "estado": "COMPLETADA"
+}
+
+### Error 400 por titulo vacio
+POST {{baseUrl}}/tareas
+Content-Type: application/json
+
+{
+  "titulo": "",
+  "descripcion": "Debe fallar",
+  "estado": "PENDIENTE"
+}
+
+### Error 400 por estado invalido
+PUT {{baseUrl}}/tareas/1
+Content-Type: application/json
+
+{
+  "estado": "EN_PROCESO"
+}
+
+### Actualizar estado
+PUT {{baseUrl}}/tareas/1
+Content-Type: application/json
+
+{
+  "estado": "COMPLETADA"
+}
+
+### Eliminar tarea
+DELETE {{baseUrl}}/tareas/1
+
+### Error 404 al eliminar una tarea inexistente
+DELETE {{baseUrl}}/tareas/999

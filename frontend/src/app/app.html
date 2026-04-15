@@ -1,0 +1,100 @@
+<header class="topbar">
+  <div>
+    <p class="eyebrow">Angular + Spring</p>
+    <h1>Gestion de tareas</h1>
+  </div>
+  <button class="icon-button" type="button" title="Recargar" aria-label="Recargar" (click)="cargarTareas()">
+    &#8635;
+  </button>
+</header>
+
+<main class="workspace">
+  <section class="composer" aria-labelledby="formTitle">
+    <h2 id="formTitle">Nueva tarea</h2>
+
+    <form class="task-form" [formGroup]="form" (ngSubmit)="crearTarea()">
+      <label>
+        Titulo
+        <input type="text" formControlName="titulo" autocomplete="off" />
+      </label>
+      <p class="field-error" *ngIf="form.controls.titulo.touched && form.controls.titulo.invalid">
+        El titulo no puede estar vacio.
+      </p>
+
+      <label>
+        Descripcion
+        <textarea rows="5" formControlName="descripcion"></textarea>
+      </label>
+
+      <label>
+        Estado
+        <select formControlName="estado">
+          <option value="PENDIENTE">Pendiente</option>
+          <option value="COMPLETADA">Completada</option>
+        </select>
+      </label>
+
+      <button class="primary-button" type="submit" [disabled]="cargando()">
+        <span aria-hidden="true">+</span>
+        Crear
+      </button>
+    </form>
+  </section>
+
+  <section class="tasks-area" aria-labelledby="listTitle">
+    <div class="list-head">
+      <div>
+        <p class="counter">{{ contador() }}</p>
+        <h2 id="listTitle">Tareas</h2>
+      </div>
+      <span class="api-status" [class.loading]="cargando()" [class.error]="tipoMensaje() === 'error'">
+        {{ cargando() ? 'Cargando' : 'API lista' }}
+      </span>
+    </div>
+
+    <div class="message" [class.success]="tipoMensaje() === 'success'" [class.error]="tipoMensaje() === 'error'">
+      {{ mensaje() }}
+    </div>
+
+    <ul class="task-list">
+      <li class="empty-state" *ngIf="!cargando() && tareas().length === 0">Sin tareas registradas</li>
+
+      <li class="task-card" [class.is-done]="tarea.estado === 'COMPLETADA'" *ngFor="let tarea of tareas(); trackBy: trackById">
+        <div class="task-content">
+          <h3>{{ tarea.titulo }}</h3>
+          <p>{{ tarea.descripcion || 'Sin descripcion' }}</p>
+          <div class="task-meta">
+            <span class="pill" [class.done]="tarea.estado === 'COMPLETADA'" [class.pending]="tarea.estado === 'PENDIENTE'">
+              {{ tarea.estado === 'COMPLETADA' ? 'Completada' : 'Pendiente' }}
+            </span>
+            <span>{{ formatearFecha(tarea.fechaActualizacion || tarea.fechaCreacion) }}</span>
+          </div>
+        </div>
+
+        <div class="task-actions">
+          <button
+            class="icon-button success"
+            type="button"
+            [title]="tarea.estado === 'PENDIENTE' ? 'Completar' : 'Marcar pendiente'"
+            [attr.aria-label]="tarea.estado === 'PENDIENTE' ? 'Completar' : 'Marcar pendiente'"
+            [disabled]="cargando()"
+            (click)="cambiarEstado(tarea)"
+          >
+            <span *ngIf="tarea.estado === 'PENDIENTE'">&#10003;</span>
+            <span *ngIf="tarea.estado === 'COMPLETADA'">&#8635;</span>
+          </button>
+          <button
+            class="icon-button danger"
+            type="button"
+            title="Eliminar"
+            aria-label="Eliminar"
+          [disabled]="cargando()"
+          (click)="eliminarTarea(tarea)"
+        >
+          &times;
+        </button>
+        </div>
+      </li>
+    </ul>
+  </section>
+</main>

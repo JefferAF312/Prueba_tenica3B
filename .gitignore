@@ -1,0 +1,16 @@
+**/node_modules/
+**/dist/
+**/target/
+**/.angular/
+**/.expo/
+**/web-build/
+**/coverage/
+**/*.log
+**/.env
+**/.env.local
+**/.env.*.local
+
+.DS_Store
+Thumbs.db
+*.iml
+.idea/
