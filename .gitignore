@@ -2,8 +2,6 @@
 **/dist/
 **/target/
 **/.angular/
-**/.expo/
-**/web-build/
 **/coverage/
 **/*.log
 **/.env

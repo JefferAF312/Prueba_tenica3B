@@ -73,14 +73,10 @@ http://localhost:8080/api
 
 ## CORS
 
-Habilitado para Angular y Expo web en desarrollo:
+Habilitado para Angular en desarrollo:
 
 - `http://localhost:4200`
 - `http://127.0.0.1:4200`
-- `http://localhost:8081`
-- `http://127.0.0.1:8081`
-- `http://localhost:19006`
-- `http://127.0.0.1:19006`
 
 ## Endpoints
 
