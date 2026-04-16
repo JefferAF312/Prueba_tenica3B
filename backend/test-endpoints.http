@@ -41,12 +41,18 @@ PUT {{baseUrl}}/tareas/1
 Content-Type: application/json
 
 {
-  "titulo": "Preparar prueba tecnica",
-  "descripcion": "Completar API y frontend",
   "estado": "EN_PROCESO"
 }
 
-### Actualizar tarea
+### Actualizar estado
+PUT {{baseUrl}}/tareas/1
+Content-Type: application/json
+
+{
+  "estado": "COMPLETADA"
+}
+
+### Actualizar tarea completa (extra)
 PUT {{baseUrl}}/tareas/1
 Content-Type: application/json
 

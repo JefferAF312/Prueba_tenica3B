@@ -1,40 +1,39 @@
-# Frontend - Gestion de tareas
+# Frontend - Angular
+
+Interfaz web en Angular para consumir la API REST de tareas.
+
 ## Requisitos
 
 - Node.js 18 o superior
 
 ## Configuracion
 
-La API por defecto es:
+La API usada por el frontend es:
 
 ```text
 http://localhost:8080/api
 ```
 
-Si necesitas cambiarla, crea un archivo `.env` copiando `.env.example`:
-
-```bash
-VITE_API_URL=http://localhost:8080/api
-```
+La URL esta definida en `src/app/services/tareas.service.ts`.
 
 ## Ejecutar
 
 ```bash
 npm install
-npm run dev
+npm start
 ```
 
 En PowerShell, si `npm` esta bloqueado por la politica de scripts, usa:
 
 ```bash
 npm.cmd install
-npm.cmd run dev
+npm.cmd start
 ```
 
 El frontend queda disponible en:
 
 ```text
-http://127.0.0.1:5173
+http://localhost:4200
 ```
 
 ## Build

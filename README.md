@@ -1,10 +1,4 @@
 # Prueba tecnica 3B
-
-Proyecto completo de gestion de tareas con:
-
-- Backend: Java y Spring Boot.
-- Frontend web: Angular.
-
 ## Estructura
 
 ```text
@@ -14,7 +8,7 @@ frontend/
 
 ## Backend
 
-```bash (cmd)
+```bash
 cd backend
 mvn spring-boot:run
 ```
@@ -25,9 +19,15 @@ API:
 http://localhost:8080/api
 ```
 
-## Frontend Angular
+Persistencia:
 
-```bash (cmd)
+```text
+backend/data/tareas.json
+```
+
+## Frontend
+
+```bash
 cd frontend
 npm install
 npm start
@@ -49,6 +49,17 @@ cd ../frontend
 npm run build
 ```
 
- ## MANEJO DE ERRORES SE REALIZA EN CONTROLLER Y EXEPTION 
- AL NO ESTAR CONECTADA A UNA BASE DE DATOS ES COMPLICADO VER ESOS ERRORES
- ## UTILICÉ UN .JSON PARA GUARDAR LOS DATOS INGRESADOS Y AGREGUE CRUD PARA MANEJAR MEJOR TODO LO REQUERIDO
+## Manejo de errores
+
+El backend responde con codigos HTTP adecuados:
+
+- `200` para operaciones correctas
+- `201` al crear tareas
+- `204` al eliminar tareas
+- `400` para validaciones o datos invalidos
+- `404` cuando una tarea no existe
+- `500` para errores internos
+
+## Nota
+
+Ya que no cuenta con base de datos se utilizará un .json como base de datos para guardar las tareas. (tareas.json)

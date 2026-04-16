@@ -1,24 +1,63 @@
 # Backend - API REST de tareas
+
+Backend en Java + Spring Boot para la parte 2 de la prueba tecnica. La API cumple con los endpoints solicitados en el PDF y, ademas, soporta un CRUD mas completo para el frontend.
+
 ## Requisitos
 
 - Java 17 o superior
 - Maven 3.6 o superior
 
-## Base de datos
+## Persistencia
 
-No necesitas crear una base de datos externa. El proyecto usa H2 en memoria para correr rapido.
+No usa base de datos externa. Las tareas se guardan en:
 
-- JDBC URL: `jdbc:h2:mem:tareas_db`
-- Usuario: `sa`
-- Password: vacio
-- Consola H2: `http://localhost:8080/api/h2-console`
-
-La tabla `tareas` se crea automaticamente al iniciar la API.
+```text
+backend/data/tareas.json
+```
 
 ## Ejecutar
 
 ```bash
 mvn spring-boot:run
+```
+
+La API queda disponible en:
+
+```text
+http://localhost:8080/api
+```
+
+## Endpoints solicitados
+
+| Metodo | Endpoint | Descripcion |
+| --- | --- | --- |
+| GET | `/api/tareas` | Lista todas las tareas |
+| POST | `/api/tareas` | Crea una tarea |
+| PUT | `/api/tareas/{id}` | Actualiza el estado de una tarea |
+| DELETE | `/api/tareas/{id}` | Elimina una tarea |
+
+## Endpoints extra
+
+| Metodo | Endpoint | Descripcion |
+| --- | --- | --- |
+| GET | `/api/tareas/{id}` | Obtiene una tarea por id |
+
+El `PUT /api/tareas/{id}` acepta el formato minimo del enunciado:
+
+```json
+{
+  "estado": "COMPLETADA"
+}
+```
+
+Tambien acepta actualizacion completa para soportar el CRUD del frontend:
+
+```json
+{
+  "titulo": "Preparar prueba final",
+  "descripcion": "Backend, frontend y JSON",
+  "estado": "COMPLETADA"
+}
 ```
 
 ## Codigos HTTP
@@ -32,7 +71,7 @@ mvn spring-boot:run
 
 ## Probar
 
-Puedes usar el archivo `test-endpoints.http` desde VS Code/IntelliJ o ejecutar:
+Puedes usar `test-endpoints.http` desde VS Code o IntelliJ, o ejecutar:
 
 ```bash
 mvn test

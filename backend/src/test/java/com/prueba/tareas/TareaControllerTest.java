@@ -57,6 +57,26 @@ class TareaControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
+                                  "estado": "COMPLETADA"
+                                }
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.titulo").value("Preparar prueba"))
+                .andExpect(jsonPath("$.descripcion").value("Backend y frontend"))
+                .andExpect(jsonPath("$.estado").value("COMPLETADA"));
+
+        mockMvc.perform(delete("/tareas/" + id))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void permiteActualizarLaTareaCompleta() throws Exception {
+        Long id = crearTarea();
+
+        mockMvc.perform(put("/tareas/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
                                   "titulo": "Preparar prueba final",
                                   "descripcion": "Backend, frontend y JSON",
                                   "estado": "COMPLETADA"
@@ -66,9 +86,6 @@ class TareaControllerTest {
                 .andExpect(jsonPath("$.titulo").value("Preparar prueba final"))
                 .andExpect(jsonPath("$.descripcion").value("Backend, frontend y JSON"))
                 .andExpect(jsonPath("$.estado").value("COMPLETADA"));
-
-        mockMvc.perform(delete("/tareas/" + id))
-                .andExpect(status().isNoContent());
     }
 
     @Test
@@ -90,8 +107,17 @@ class TareaControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "titulo": "Preparar prueba",
-                                  "descripcion": "Backend y frontend",
+                                  "titulo": "",
+                                  "estado": "PENDIENTE"
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("El titulo no puede estar vacio"));
+
+        mockMvc.perform(put("/tareas/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
                                   "estado": "EN_PROCESO"
                                 }
                                 """))

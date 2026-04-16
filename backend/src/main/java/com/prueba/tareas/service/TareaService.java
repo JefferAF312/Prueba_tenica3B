@@ -56,8 +56,19 @@ public class TareaService {
 
     public synchronized TareaResponse actualizar(Long id, ActualizarTareaRequest request) {
         Tarea tarea = buscarPorId(id);
-        tarea.setTitulo(request.titulo().trim());
-        tarea.setDescripcion(limpiar(request.descripcion()));
+        if (request.titulo() != null) {
+            String titulo = request.titulo().trim();
+            if (titulo.isBlank()) {
+                throw new IllegalArgumentException("El titulo no puede estar vacio");
+            }
+            tarea.setTitulo(titulo);
+            tarea.setDescripcion(limpiar(request.descripcion()));
+        }
+
+        if (request.titulo() == null && request.descripcion() != null) {
+            tarea.setDescripcion(limpiar(request.descripcion()));
+        }
+
         tarea.setEstado(EstadoTarea.desdeRequerido(request.estado()));
         tarea.setFechaActualizacion(LocalDateTime.now());
 
