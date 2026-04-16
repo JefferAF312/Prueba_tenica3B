@@ -3,6 +3,9 @@
 ### Listar tareas
 GET {{baseUrl}}/tareas
 
+### Obtener tarea por id
+GET {{baseUrl}}/tareas/1
+
 ### Crear tarea pendiente
 POST {{baseUrl}}/tareas
 Content-Type: application/json
@@ -38,14 +41,18 @@ PUT {{baseUrl}}/tareas/1
 Content-Type: application/json
 
 {
+  "titulo": "Preparar prueba tecnica",
+  "descripcion": "Completar API y frontend",
   "estado": "EN_PROCESO"
 }
 
-### Actualizar estado
+### Actualizar tarea
 PUT {{baseUrl}}/tareas/1
 Content-Type: application/json
 
 {
+  "titulo": "Preparar prueba tecnica actualizada",
+  "descripcion": "CRUD completo con JSON",
   "estado": "COMPLETADA"
 }
 

@@ -2,7 +2,7 @@
 
 Proyecto completo de gestion de tareas con:
 
-- Backend: Java, Spring Boot, PostgreSQL y PL/pgSQL.
+- Backend: Java y Spring Boot.
 - Frontend web: Angular.
 
 ## Estructura
@@ -14,9 +14,8 @@ frontend/
 
 ## Backend
 
-```bash
+```bash (cmd)
 cd backend
-docker compose up -d
 mvn spring-boot:run
 ```
 
@@ -26,15 +25,9 @@ API:
 http://localhost:8080/api
 ```
 
-La migracion de base de datos esta en:
-
-```text
-backend/src/main/resources/db/migration/V1__crear_tabla_tareas.sql
-```
-
 ## Frontend Angular
 
-```bash
+```bash (cmd)
 cd frontend
 npm install
 npm start
@@ -55,3 +48,7 @@ mvn test
 cd ../frontend
 npm run build
 ```
+
+ ## MANEJO DE ERRORES SE REALIZA EN CONTROLLER Y EXEPTION 
+ AL NO ESTAR CONECTADA A UNA BASE DE DATOS ES COMPLICADO VER ESOS ERRORES
+ ## UTILICÉ UN .JSON PARA GUARDAR LOS DATOS INGRESADOS Y AGREGUE CRUD PARA MANEJAR MEJOR TODO LO REQUERIDO

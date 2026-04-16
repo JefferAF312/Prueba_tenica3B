@@ -1,6 +1,5 @@
 <header class="topbar">
   <div>
-    <p class="eyebrow">Angular + Spring</p>
     <h1>Gestion de tareas</h1>
   </div>
   <button class="icon-button" type="button" title="Recargar" aria-label="Recargar" (click)="cargarTareas()">
@@ -10,9 +9,9 @@
 
 <main class="workspace">
   <section class="composer" aria-labelledby="formTitle">
-    <h2 id="formTitle">Nueva tarea</h2>
+    <h2 id="formTitle">{{ tituloFormulario() }}</h2>
 
-    <form class="task-form" [formGroup]="form" (ngSubmit)="crearTarea()">
+    <form class="task-form" [formGroup]="form" (ngSubmit)="guardarTarea()">
       <label>
         Titulo
         <input type="text" formControlName="titulo" autocomplete="off" />
@@ -34,10 +33,22 @@
         </select>
       </label>
 
-      <button class="primary-button" type="submit" [disabled]="cargando()">
-        <span aria-hidden="true">+</span>
-        Crear
-      </button>
+      <div class="form-actions">
+        <button class="primary-button" type="submit" [disabled]="cargando()">
+          <span aria-hidden="true" *ngIf="!tareaEnEdicion()">+</span>
+          <span aria-hidden="true" *ngIf="tareaEnEdicion()">&#10003;</span>
+          {{ textoBotonPrincipal() }}
+        </button>
+        <button
+          class="secondary-button"
+          type="button"
+          *ngIf="tareaEnEdicion()"
+          [disabled]="cargando()"
+          (click)="cancelarEdicion()"
+        >
+          Cancelar
+        </button>
+      </div>
     </form>
   </section>
 
@@ -47,9 +58,6 @@
         <p class="counter">{{ contador() }}</p>
         <h2 id="listTitle">Tareas</h2>
       </div>
-      <span class="api-status" [class.loading]="cargando()" [class.error]="tipoMensaje() === 'error'">
-        {{ cargando() ? 'Cargando' : 'API lista' }}
-      </span>
     </div>
 
     <div class="message" [class.success]="tipoMensaje() === 'success'" [class.error]="tipoMensaje() === 'error'">
@@ -73,6 +81,16 @@
 
         <div class="task-actions">
           <button
+            class="icon-button edit"
+            type="button"
+            title="Editar"
+            aria-label="Editar"
+            [disabled]="cargando()"
+            (click)="editarTarea(tarea)"
+          >
+            &#9998;
+          </button>
+          <button
             class="icon-button success"
             type="button"
             [title]="tarea.estado === 'PENDIENTE' ? 'Completar' : 'Marcar pendiente'"
@@ -88,11 +106,11 @@
             type="button"
             title="Eliminar"
             aria-label="Eliminar"
-          [disabled]="cargando()"
-          (click)="eliminarTarea(tarea)"
-        >
-          &times;
-        </button>
+            [disabled]="cargando()"
+            (click)="eliminarTarea(tarea)"
+          >
+            &times;
+          </button>
         </div>
       </li>
     </ul>

@@ -1,54 +1,44 @@
-# Frontend - Angular
-
-Frontend web en Angular para consumir la API Spring de tareas.
-
+# Frontend - Gestion de tareas
 ## Requisitos
 
-- Node.js 20 o superior
-- Backend corriendo en `http://localhost:8080/api`
+- Node.js 18 o superior
+
+## Configuracion
+
+La API por defecto es:
+
+```text
+http://localhost:8080/api
+```
+
+Si necesitas cambiarla, crea un archivo `.env` copiando `.env.example`:
+
+```bash
+VITE_API_URL=http://localhost:8080/api
+```
 
 ## Ejecutar
 
 ```bash
 npm install
-npm start
+npm run dev
 ```
 
 En PowerShell, si `npm` esta bloqueado por la politica de scripts, usa:
 
 ```bash
 npm.cmd install
-npm.cmd start
+npm.cmd run dev
 ```
 
-La aplicacion queda disponible en:
+El frontend queda disponible en:
 
 ```text
-http://localhost:4200
+http://127.0.0.1:5173
 ```
 
 ## Build
 
 ```bash
 npm run build
-```
-
-O en PowerShell:
-
-```bash
-npm.cmd run build
-```
-
-## API
-
-El servicio Angular apunta a:
-
-```text
-http://localhost:8080/api/tareas
-```
-
-Archivo principal:
-
-```text
-src/app/tareas.service.ts
 ```

@@ -1,6 +1,6 @@
 package com.prueba.tareas.controller;
 
-import com.prueba.tareas.dto.ActualizarEstadoRequest;
+import com.prueba.tareas.dto.ActualizarTareaRequest;
 import com.prueba.tareas.dto.CrearTareaRequest;
 import com.prueba.tareas.dto.TareaResponse;
 import com.prueba.tareas.service.TareaService;
@@ -32,6 +32,11 @@ public class TareaController {
         return tareaService.listar();
     }
 
+    @GetMapping("/{id}")
+    public TareaResponse obtener(@PathVariable Long id) {
+        return tareaService.obtener(id);
+    }
+
     @PostMapping
     public ResponseEntity<TareaResponse> crear(@Valid @RequestBody CrearTareaRequest request) {
         TareaResponse tarea = tareaService.crear(request);
@@ -39,10 +44,10 @@ public class TareaController {
     }
 
     @PutMapping("/{id}")
-    public TareaResponse actualizarEstado(
+    public TareaResponse actualizar(
             @PathVariable Long id,
-            @Valid @RequestBody ActualizarEstadoRequest request) {
-        return tareaService.actualizarEstado(id, request);
+            @Valid @RequestBody ActualizarTareaRequest request) {
+        return tareaService.actualizar(id, request);
     }
 
     @DeleteMapping("/{id}")

@@ -14,3 +14,5 @@ export interface CrearTareaRequest {
   descripcion?: string | null;
   estado: EstadoTarea;
 }
+
+export type ActualizarTareaRequest = CrearTareaRequest;
